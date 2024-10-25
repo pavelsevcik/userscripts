@@ -1,0 +1,43 @@
+// ==UserScript==
+// @name         {{DOMAIN}}__{{SCRIPT}}
+// @description  {{DESCRIPTION}}
+// @version      0.0.0-local
+// @author       Pavel Sevcik
+// @namespace    {{DOMAIN}}__{{SCRIPT}}
+// @icon         https://www.google.com/s2/favicons?sz=64&domain={{DOMAIN}}
+// @require      https://userscripts.docker.localhost/src/{{DOMAIN}}/{{SCRIPT}}/bundle.js
+// @grant        GM.xmlHttpRequest
+// @grant        GM.getValue
+// @grant        GM.setValue
+// @match        https://{{DOMAIN}}/*
+// @match        https://www.{{DOMAIN}}/*
+// @run-at       document-start
+// ==/UserScript==
+
+(async function() {
+
+  const LOCALHOST_URL = "https://userscripts.docker.localhost/src/{{DOMAIN}}/{{SCRIPT}}/bundle.js?cb=" + Date.now()
+
+  const {name: SCRIPT, version: VERSION} = GM_info.script;
+  const log = (...args) => {
+    console.log(`%c[${SCRIPT}]`, 'background: lightgray; color: blue', ...args)
+  }
+  log('XMLHTTPREQUEST', LOCALHOST_URL)
+  GM.xmlHttpRequest({
+    url: LOCALHOST_URL,
+    onload:  async(response) => {
+      const text=response.responseText;
+      const storageData = await GM.getValue("CachedScriptKey");
+      //log(storageData);
+      //log(text);
+      if(text!=storageData){
+        log("RELOADING bundle.js");
+        await GM.setValue("CachedScriptKey",text);
+        location.reload();
+      }else{
+        log("bundle.js UP TO DATE");
+      }
+    }
+  });
+
+})();

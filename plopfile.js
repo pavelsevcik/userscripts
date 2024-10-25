@@ -51,8 +51,9 @@ export default function (plop) {
         name: 'REQUIRE',
         message: 'require following js libraries:',
         choices: [
-          'toastr',
           'mousetrap',
+          'mousetrap-global',
+          'utils',
         ]
       },
     ],
@@ -65,12 +66,22 @@ export default function (plop) {
       {
         type: 'add',
         path: 'src/{{DOMAIN}}/{{SCRIPT}}/meta.js',
-        templateFile: 'templates/userscript/meta.js'
+        templateFile: 'templates/userscript/meta.hbs'
       },
       {
         type: 'add',
         path: 'src/{{DOMAIN}}/{{SCRIPT}}/code.js',
-        templateFile: 'templates/userscript/code.js'
+        templateFile: 'templates/userscript/code.hbs'
+      },
+      {
+        type: 'add',
+        path: 'src/{{DOMAIN}}/{{SCRIPT}}/local.js',
+        templateFile: 'templates/userscript/local.hbs'
+      },
+      {
+        type: 'add',
+        path: 'src/{{DOMAIN}}/{{SCRIPT}}/version.js',
+        templateFile: 'templates/userscript/version.hbs'
       },
     ]
   });
