@@ -24,6 +24,13 @@ build: check-script-path-env verup-patch ## Build user.js by merging meta.js and
 build-n-copy-to-clipboard: build ## Build user.js by merging meta.js and code.js files and copy user.js to clicpboard
 	@cat $(DIST_PATH)/user.js | xclip -selection clipboard
 
+bundle: check-script-path-env verup-patch ## Build user.js by merging meta.js and code.js files
+	@cat $(SCRIPT_PATH)/version.js > $(SCRIPT_PATH)/bundle.js
+	@grep -q Mousetrap $(SCRIPT_PATH)/code.js && echo "bundle__mousetrap" && cat ./src/mousetrap.js >> $(SCRIPT_PATH)/bundle.js || echo ''
+	@grep -q bundle__utils $(SCRIPT_PATH)/code.js && echo "bundle__utils" && cat ./src/utils.js >> $(SCRIPT_PATH)/bundle.js || echo ''
+	@grep -q bundle__utilsx $(SCRIPT_PATH)/code.js && echo "bundle__utils" && cat ./src/utils.js >> $(SCRIPT_PATH)/bundle.js || echo ''
+	@cat $(SCRIPT_PATH)/code.js >> $(SCRIPT_PATH)/bundle.js
+
 verup-minor: check-script-path-env ## Bump minor version
 	@./verup.cjs minor $(SCRIPT_PATH)
 
