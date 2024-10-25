@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "module": "CommonJS",
+    "target": "ES6",
+    "typeRoots": [
+      "./src"
+    ],
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
