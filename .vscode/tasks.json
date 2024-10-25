@@ -1,0 +1,25 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"command": "make build-n-copy-to-clipboard SCRIPT_PATH=${relativeFileDirname}",
+			"group": "build",
+			"label": "build-n-copy-to-clipboard",
+			"type": "shell"
+		},
+		{
+			"command": "make verup-minor SCRIPT_PATH=${relativeFileDirname}",
+			"group": "build",
+			"label": "verup-minor",
+			"type": "shell"
+		},
+		{
+			"command": "make bundle SCRIPT_PATH=${relativeFileDirname}",
+			"group": {
+				"kind": "build"
+			},
+			"label": "bundle",
+			"type": "shell"
+		}
+	]
+}
